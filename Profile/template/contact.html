@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}Fake Social Media Profile Detection{% endblock title %}
+
+{% block body %}
+  <style>
+    .contact-info p {
+      color: #ececec;
+      font-size: 18px; /* Increased font size */
+    }
+
+    ul.contact-info {
+      margin-top: 30px;
+    }
+
+    ul.contact-info li {
+      margin-bottom: 22px;
+    }
+
+    ul.contact-info span {
+      font-size: 20px;
+      line-height: 26px;
+    }
+
+    ul.contact-info li {
+      display: flex;
+      width: 100%;
+    }
+
+    .info-left {
+      width: 10%;
+    }
+
+    .info-left i {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 30px;
+      color: #ffffff;
+    }
+
+    .info-right h4 {
+      color: #fff;
+      font-size: 20px; /* Increased font size */
+      font-weight: bold; /* Bold font */
+    }
+
+    .contact-page .info-left i {
+      color: #FE846F;
+    }
+
+    /* New CSS for the form section */
+    .contact-form {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      margin-left: auto;
+      margin-right: 30px; /* Adjust as needed */
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5a64e8;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .contact-form h2 {
+      font-size: 24px; /* Increased font size */
+      font-weight: bold; /* Bold font */
+      margin-bottom: 20px;
+    }
+
+    .section-bg {
+      padding-top: 135px; /* Adjust as needed */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60vh; /* Ensures the section covers the viewport height */
+    }
+
+    .thank-you-message {
+      display: none;
+      font-size: 20px;
+      color: green;
+      margin-top: 20px;
+    }
+  </style>
+
+  <section class="section-bg" data-scroll-index="7">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex align-items-center">
+          <div class="contact-info">
+            <h2 class="contact-title font-bold" style="font-size: 58px; color: #000000; font-weight: bold;">Let's get in touch</h2>
+            <p style="font-size: 38px; color: #000000; font-style: italic;">We're open for any suggestions or just to have a chat!</p>
+            <ul class="contact-info">
+              <li>
+                <div class="info-left">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="info-right">
+                  <h4 style="font-size: 20px; color: #000000; font-weight: bold;">📞 Phone: +91-7318128805, +91-9140334680 </h4>
+                </div>
+              </li>
+              <li>
+                <div class="info-left">
+                  <i class="fas fa-at"></i>
+                </div>
+                <div class="info-right">
+                  <h4 style="font-size: 20px; color: #000000; font-weight: bold;">✉️ Email: shreya.chaurasia127@bbdnitm.ac.in</h4>
+                </div>
+              </li>
+              <li>
+                <div class="info-left">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="info-right">
+                  <h4 style="font-size: 20px; color: #000000; font-weight: bold;">📍 Babu Banarasi Das Institute Of Technology And Management, Lucknow</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <!-- Form Section -->
+          <div class="contact-form">
+            <h2>Contact Us</h2>
+            <form id="contact-form" method="POST">
+              {% csrf_token %}
+              <input type="text" name="name" placeholder="Your Name" required>
+              <input type="email" name="email" placeholder="Your Email" required>
+              <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+              <button type="submit">Submit</button>
+            </form>
+            <div style="font-family: serif; font-size: 25px; color: #500724; text-align: center" class="thank-you-message" id="thank-you-message">
+              🎉🎉Thank you for contacting us. We will connect you soon!🎉🎉
+            </div>
+          </div>
+          <!-- End Form Section -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Here you can add your form submission logic, e.g., AJAX request
+      // For demonstration, we will just show the thank you message
+      document.getElementById('thank-you-message').style.display = 'block';
+    });
+  </script>
+{% endblock body %}

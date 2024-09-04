@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Registration{% endblock title %}
+
+{% block body %}
+<style>
+  .relative label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .relative input {
+    width: 100%;
+    background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+    border-width: 1px;
+    border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    margin-top: 8px; /* Add margin-top to create space between label and input */
+  }
+  .relative input:focus {
+    border-color: rgba(99, 102, 241, var(--tw-border-opacity));
+    background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, var(--tw-ring-opacity));
+  }
+  .help-text {
+    color: #6b7280; /* Tailwind gray-500 */
+    font-size: 0.875rem; /* Tailwind text-sm */
+    margin-top: 0.25rem; /* Tailwind mt-1 */
+  }
+  .valid {
+    color: #48bb78; /* Tailwind green-500 */
+    font-size: 0.875rem; /* Tailwind text-sm */
+    margin-top: 0.25rem; /* Tailwind mt-1 */
+  }
+  .invalid {
+    color: #f56565; /* Tailwind red-500 */
+    font-size: 0.875rem; /* Tailwind text-sm */
+    margin-top: 0.25rem; /* Tailwind mt-1 */
+  }
+</style>
+
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 style="font-size: 50px; font-weight: bold; color: #4338ca; text-align: center" class="sm:text-3xl text-2xl font-medium title-font mb-4 text-slate-950">Registration</h1>
+      <p style=" font-family:serif ; font-size: 25px;  color: #000000; " class="lg:w-2/3 mx-auto leading-relaxed text-base">Join us today and take the first step towards ensuring your online presence is authentic. Register now to verify if your profile is genuine or a fake. Stay safe and secure in the digital world by making sure your profile stands up to scrutiny. Sign up and get your profile checked today!</p>
+    </div>
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+      <div class="rounded-lg border border-gray-300 p-6 bg-white"> <!-- Added bg-white for white background -->
+        {% if messages %}
+        <div class="p-2 w-full mb-4 text-center text-green-500">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+        <script>
+          setTimeout(function() {
+            window.location.href = "{% url 'login' %}";
+          }, 3000);
+        </script>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          <div class="flex flex-col items-center">
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="username" style="font-size: 30px; color: #333; " class="leading-7 text-sm text-gray-600">Username</label>
+                {{ form.username }}
+                {% for error in form.username.errors %}
+                  <p class="invalid">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="email" style="font-size: 30px; color: #333; " class="leading-7 text-sm text-gray-600">Email</label>
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                  <p class="invalid">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="password1" style="font-size: 30px; color: #333; " class="leading-7 text-sm text-gray-600">Password</label>
+                {{ form.password1 }}
+                <div id="password-requirements" class="help-text">
+                  <p id="length"  style="font-family: serif; font-size:20px;" class="invalid">- At least 8 characters</p>
+                  <p id="uppercase" style="font-family: serif; font-size:20px;" class="invalid">- One uppercase letter</p>
+                  <p id="lowercase" style="font-family: serif; font-size:20px;" class="invalid">- One lowercase letter</p>
+                  <p id="number" style="font-family: serif; font-size:20px;" class="invalid">- One number</p>
+                  <p id="special" style="font-family: serif; font-size:20px;" class="invalid">- One special character</p>
+                </div>
+                {% for error in form.password1.errors %}
+                  <p class="invalid">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="password2"  style="font-size: 30px; color: #333; " class="leading-7 text-sm text-gray-600">Confirm Password</label>
+                {{ form.password2 }}
+                {% for error in form.password2.errors %}
+                  <p class="invalid">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <button type="submit" style="font-family: serif; font-size:30px;" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+            </div>
+            <div style="font-family: serif; font-size:20px;" class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+              <a  class="text-indigo-500">Already registered? <a href="{% url 'login' %}">Click Here to Login</a></a>
+            </div>
+          </div>
+        </form>
+      </div> <!-- Closing the rounded-lg border div -->
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordField = document.getElementById('id_password1');
+    const lengthRequirement = document.getElementById('length');
+    const uppercaseRequirement = document.getElementById('uppercase');
+    const lowercaseRequirement = document.getElementById('lowercase');
+    const numberRequirement = document.getElementById('number');
+    const specialRequirement = document.getElementById('special');
+
+    passwordField.addEventListener('input', function() {
+      const password = passwordField.value;
+      
+      if (password.length >= 8) {
+        lengthRequirement.classList.remove('invalid');
+        lengthRequirement.classList.add('valid');
+      } else {
+        lengthRequirement.classList.remove('valid');
+        lengthRequirement.classList.add('invalid');
+      }
+
+      if (/[A-Z]/.test(password)) {
+        uppercaseRequirement.classList.remove('invalid');
+        uppercaseRequirement.classList.add('valid');
+      } else {
+        uppercaseRequirement.classList.remove('valid');
+        uppercaseRequirement.classList.add('invalid');
+      }
+
+      if (/[a-z]/.test(password)) {
+        lowercaseRequirement.classList.remove('invalid');
+        lowercaseRequirement.classList.add('valid');
+      } else {
+        lowercaseRequirement.classList.remove('valid');
+        lowercaseRequirement.classList.add('invalid');
+      }
+
+      if (/\d/.test(password)) {
+        numberRequirement.classList.remove('invalid');
+        numberRequirement.classList.add('valid');
+      } else {
+        numberRequirement.classList.remove('valid');
+        numberRequirement.classList.add('invalid');
+      }
+
+      if (/[@$!%*?&#]/.test(password)) {
+        specialRequirement.classList.remove('invalid');
+        specialRequirement.classList.add('valid');
+      } else {
+        specialRequirement.classList.remove('valid');
+        specialRequirement.classList.add('invalid');
+      }
+    });
+  });
+</script>
+{% endblock body %}

@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% block title %}Prediction{% endblock title %}
+
+{% block body %}
+<style>
+  /* Custom Styles */
+  .form-container {
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .form-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .input-box {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 8px;
+    /* Add any additional styles you want */
+  }
+
+  .form-button:hover {
+    background-color: #45a049;
+  }
+
+  /* Custom CSS for video section */
+  .video-section {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .video-link {
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .video-link:hover {
+    color: #4CAF50;
+  }
+  .form-container {
+    background-color: #ffffff; /* White background */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+/* Custom CSS for centering sticky notes and black outline */
+.sticky-note-container {
+  display: flex;
+  justify-content: center;
+}
+
+.sticky-note {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 700px; /* Increased max-width */
+  width: 100%; /* Ensures the container uses available width */
+  border: 2px solid #000; /* Black border */
+  color: #000000 /* Set your desired text color here */
+}
+
+.columns {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.guideline-list {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.guideline-list li {
+  font-size: 16px;
+  color: #555;
+}
+
+
+
+</style>
+<section class="text-slate-950 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 style="font-size: 50px; font-family: serif;" class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Fake Profile Detection</h1>
+      <p style="font-size: 25px; font-family: serif;" class="lg:w-2/3 mx-auto leading-relaxed text-base">"👇👇Check your profile here for fake or real.👇👇"</p> 
+
+      <br><b>
+      {% if output  %}
+      <h2 style="font-size: 30px;" class = "text-success">Prediction : {{output}}</h2>
+      {% endif %}
+      </b>
+    </div>
+    <div class="form-container">
+      <div class="sticky-note-container">
+        <div class="sticky-note">
+          <h2 style="font-size: 30px; font-weight: bold; color: #333; text-align: center">Prediction Guidelines:</h2>
+          <br>
+          <div class="columns">
+            <div class="column">
+              <ul class="guideline-list">
+                <li style="color: #000;">Username: Name of the profile (visible at the top).</li>
+                <li style="color: #000;">Fullname: Name present under the profile picture.</li>
+                <li style="color: #000;">Nums: Total of full username characters except the alphabets.</li>
+                <li style="color: #000;">Username length: Total characters present in the username.</li>
+                <li style="color: #000;">Fullname words: Length of the full name in words.</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="guideline-list">
+                <li style="color: #000;">Description length: Total count of description provided by the account user.</li>
+                <li style="color: #000;">External URL: Any external link that is present on the account user.</li>
+                <li style="color: #000;">Private: States whether the account is private or not.</li>
+                <li style="color: #000;">Posts: Total number of posts.</li>
+                <li style="color: #000;">Followers: Total number of followers.</li>
+                <li style="color: #000;">Follows: Total number of followings.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="video-section">
+            <a href="https://youtu.be/Kdm_rnNMLEA?si=cqIh_m-sjRxDdsNt" class="video-link text-success"  target="_blank" style="font-size:30px; font-weight:bold;">Watch the video guide</a>
+          </div>
+        </div>
+      </div>
+    <br><br><br>
+    <form method="post", action="/prediction">
+    {% csrf_token %}
+    
+    <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+      <div class="relative flex-grow w-full">
+        <label for="full-name" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950"> Is there a Profile_Pic?</label>
+        <select id="profile_pic" name="profile_pic" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option selected>Select '1' for Yes and '0' for No</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select>
+      </div>
+      <div class="relative flex-grow w-full">
+        <label for="email" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Ratio of nums/length_username </label>
+        <input type="text" id="nums/length_username" name="nums/length_username" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+    </div>
+    <br>
+    <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+      <div class="relative flex-grow w-full">
+        <label for="full-name" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Total of fullname characters</label>
+        <input type="text" id="fullname_words" name="fullname_words" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+      <div class="relative flex-grow w-full">
+        <label for="email" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Ratio of nums/fullname_length</label>
+        <input type="text" id="nums/length_fullname" name="nums/length_fullname" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+    </div>
+    <br>
+    <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+      <div class="relative flex-grow w-full">
+        <label for="full-name" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Is the fullname and username same</label>
+        <select id="name==username" name="name==username" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+          <option selected>Select '1' for Yes and '0' for No</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select>
+      </div>
+      <div class="relative flex-grow w-full">
+        <label for="email" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Total length of description </label>
+        <input type="text" id="description_length" name="description_length" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+    </div>
+    <br>
+    <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+      <div class="relative flex-grow w-full">
+        <label for="full-name" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Is there any external URL</label>
+        <select id="external_URL" name="external_URL" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+          <option selected>Select '1' for Yes and '0' for No</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select>
+      </div>
+      <div class="relative flex-grow w-full">
+        <label for="email" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Is the account private</label>
+        <select id="private" name="private" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+          <option selected>Select '1' for Yes and '0' for No</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+      <div class="relative flex-grow w-full">
+        <label for="full-name" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Total number of posts</label>
+        <input type="text" id="posts" name="posts" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+      <div class="relative flex-grow w-full">
+        <label for="email" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Total number of followers</label>
+        <input type="text" id="followers" name="followers" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+    </div>
+    <br>
+    <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+      <div class="relative flex-grow w-full">
+        <label for="full-name" style="font-size: 27px; font-family: serif;" class="leading-7 text-sm text-slate-950">Total number of Followings</label>
+        <input type="text" id="follows" name="follows" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out input-box">
+      </div>
+    </div>
+    <br>
+    <h5 class="text-danger" style="text-align:center; font-size: 40px; font-weight:bold;">👇👇 Click here 👇👇</h5>
+      <div class="text-center my-4">
+          <button type="submit" class="text-white bg-indigo-500 border-0 py-4 px-12 focus:outline-none hover:bg-indigo-600 rounded-lg text-2xl">
+              PREDICT
+          </button>
+      </div>
+
+    </form>
+    </div>
+   
+  </div>
+</section>
+
+{% endblock body %}
+
+

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About Us{% endblock title %}
+
+{% block body %}
+<style>
+
+h1{
+  font-family: serif; /* You can change this to any font family you prefer */
+  color: #020617; 
+}
+h2 {
+  margin-bottom: 10px; /* Add spacing between h2 and h3 */
+}
+
+img {
+  border: 2px solid #000000; /* Yellow border */
+  box-shadow: 0 0 1px 1px #000000; /* Reduced yellow glow */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+img:hover {
+  transform: scale(1.1); /* Enlarge image on hover */
+}
+
+
+
+</style>
+
+
+<section class="text-slate-950 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="wrapper">
+      <div class="flex flex-col text-center w-full mb-20">
+        <div class="heading-box">
+          <h1 style="font-size: 36px; font-family: serif;" class="text-2xl font-medium title-font mb-4 text-slate-950 tracking-widest">OUR TEAM</h1>
+        </div>
+        <p style="font-size: 22px; color: #020617;" class="lg:w-2/3 mx-auto leading-relaxed text-base">In the digital age, social media platforms have become pivotal for communication, networking, and information dissemination. However, the rise of these platforms has also led to the proliferation of fake social media profiles, which pose significant threats to individuals and organizations alike. Detecting and mitigating the impact of these fraudulent accounts is crucial for maintaining the integrity and trustworthiness of online communities.</p>
+      </div>
+      <div class="flex flex-wrap -m-4">
+        <div class="p-4 lg:w-1/2">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="{% static 'app/images/shrey.png' %}">
+            <div class="flex-grow sm:pl-8">
+              <h2 style="font-size: 36px; font-family: serif; text-decoration: underline;" class="title-font font-medium text-lg text-slate-950 ">Shreya Chaurasia</h2>
+              <h3 class="text-slate-950 mb-3">Team Lead</h3>
+              <h3 class="text-slate-950 mb-3">Email:- Shreya@bbdnitm.ac.in</h3>
+              <p style="font-size: 22px; color: #020617;" class="mb-4">In the realm of social media, authenticity is the currency of trust. Detecting fake profiles safeguards this currency.</p>
+            </div>
+          </div>
+        </div>
+      <div class="p-4 lg:w-1/2">
+        <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+          <img alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="{% static 'app/images/tanushri.png' %}">
+          <div class="flex-grow sm:pl-8">
+            <h2 style="font-size: 36px; font-family: serif; text-decoration: underline;" class="title-font font-medium text-lg text-slate-950 text-decoration: underline;">Tanushri Asthana</h2>
+            <h3 class="text-slate-950 mb-3">Team Member</h3>
+            <h3 class="text-slate-950 mb-3">Email:- tanushri@bbdnitm.ac.in</h3>
+            <p style="font-size: 22px; color: #020617;" class="mb-4">Unveiling the masquerade: Identifying fake social media profiles is the first step towards fostering genuine online interactions</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 lg:w-1/2">
+        <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+          <img alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="{% static 'app/images/tej.png' %}">
+          <div class="flex-grow sm:pl-8">
+            <h2 style="font-size: 36px; font-family: serif; text-decoration: underline;" class="title-font font-medium text-lg text-slate-950">Tej Narayan Prajapati</h2>
+            <h3 class="text-slate-950 mb-3">Team Member</h3>
+            <h3 class="text-slate-950 mb-3">Email:- tej@bbdnitm.ac.in</h3>
+            <p style="font-size: 22px; color: #020617;" class="mb-4">Behind every fake profile lies a veil of deception. Detecting them ensures a safer and more transparent digital environment.</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 lg:w-1/2">
+        <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+          <img alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="{% static 'app/images/vivek.png' %}">
+          <div class="flex-grow sm:pl-8">
+            <h2 style="font-size: 36px; font-family: serif; text-decoration: underline;" class="title-font font-medium text-lg text-slate-950">Vivek Kushwaha</h2>
+            <h3 class="text-slate-950 mb-3">Team Member</h3>
+            <h3 class="text-slate-950 mb-3">Email:- vivek@bbdnitm.ac.in</h3>
+            <p style="font-size: 22px; color: #020617;" class="mb-4">In the landscape of social media, distinguishing between genuine and fake profiles is the cornerstone of building a community based on trust and credibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}

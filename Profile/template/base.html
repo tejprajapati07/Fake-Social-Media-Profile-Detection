@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static "app/css/owl.carousel.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "app/css/all.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "app/css/style.css" %}"/>
+
+</head>
+<body class="bg-sky-100">
+<header class="text-gray-600 body-font">
+  <div class="navbar navbar-expand-lg navbar-dark bg-sky-300">
+    <img src="static/app/images/2.png" width="50" height="25" alt="hero">
+    <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      
+      <span class="ml-3 text-xl" style="color: red; font-family: cursive; font-size: 35px; font-weight: bold;">Fake Profile Detection </span>
+    </a>
+    <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
+      <a href="/" style="font-size: 25px; font-weight: bold;" class="mr-5 hover:text-gray-900">Home</a>
+      {% if user.is_authenticated %}
+        <a href="/about" style="font-size: 25px; font-weight: bold;" class="mr-5 hover:text-gray-900">About Us</a>
+        <a href="/prediction" style="font-size: 25px; font-weight: bold;" class="mr-5 hover:text-gray-900">Prediction</a>
+        <a href="/contact" style="font-size: 25px; font-weight: bold;" class="mr-5 hover:text-gray-900">Contact</a>
+      {% endif %}
+    </nav>
+    <div class="flex items-center">
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Logout
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">
+          <button type="button"  class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-blue-400 rounded text-base mt-4 md:mt-0" style="background-color: #1d4ed8; color: #fff;">Login
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </a>
+        <a href="{% url 'registration' %}">
+          <button type="button" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Sign-up
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+
+{% block body %}{% endblock body %}
+
+
+
+<footer class="container-fluid fixed-bottom bg-sky-300 text center p-2 mt-5">
+    Copyright : 2024 || Developed By : Group9
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"</script>
+<script script="{% static "app/css/owl.carousel.min.css" %}"></script>
+<script script="{% static "app/css/all.min.css" %}"></script>
+<script script="{% static "app/css/style.css" %}"></script>
+
+</body>
+</html>

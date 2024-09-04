@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+<style>
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* Add border style */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    /* Add any other styles you need */
+  }
+</style>
+<section class="text-slate-950 body-font relative">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="max-w-xl mx-auto bg-white border border-black p-6 rounded-lg">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 style="font-size: 50px; font-weight: bold; color: #4338ca; text-align: center" class="sm:text-3xl text-2xl font-medium title-font mb-4 text-slate-950">Login</h1>
+        <br>
+        <h1 style="font-family: serif; font-size: 35px; color: #500724; text-align: center" class="sm:text-3xl text-2xl font-medium title-font mb-2 text-slate-950">Welcome to Profile Detection.</h1>
+        <p style="font-family: serif; font-size: 35px; color: #500724; text-align: center" class="sm:text-3xl text-2xl font-medium title-font mb-2 text-slate-950">Please log in to continue.</p>
+      </div>
+      <div class="w-full">
+        <form method="post">
+          {% csrf_token %}
+          <div class="flex flex-wrap -m-2 justify-center">
+            <div class="p-2 w-full">
+            <div class="relative">
+              <label for="username" style="font-size: 30px; color: #333; text-align: center" class="leading-7 text-sm text-gray-600 mb-2">Username</label>
+              {{ form.username }}
+            </div>
+          </div>
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label for="password" style="font-size: 30px; color: #333; text-align: center" class="leading-7 text-sm text-gray-600 mb-2">Password</label>
+              {{ form.password }}
+            </div>
+          </div>
+            {% if form.non_field_errors %}
+            <div class="p-2 w-full">
+              <div class="text-red-500 text-center">
+                {% for error in form.non_field_errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+            <div class="p-2 w-full">
+              <button type="submit" style="font-family: serif; font-size:30px;" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Login</button>
+            </div>
+            <div style="font-family: serif; font-size:20px;" class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+              <a class="text-indigo-500">New User? <a href="{% url 'registration' %}">Register Here</a></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}
